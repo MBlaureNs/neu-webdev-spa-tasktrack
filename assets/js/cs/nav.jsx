@@ -23,6 +23,10 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
     //console.log(props.login);
   }
 
+  function register_user(ev) {
+    api.submit_register(props.login);
+  }
+
   return (
     <div>
       <Form inline>
@@ -35,6 +39,7 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
 		 value={props.login.password} onChange={update}/>
 	</FormGroup>
 	<Button onClick={create_token}>Login</Button>
+	<Button onClick={register_user}>Register</Button>
       </Form>
     </div>);
 });

@@ -17,8 +17,8 @@ defmodule Tasktrack.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:username, :password])
-    |> validate_required([:username])
+    |> cast(attrs, [:username, :password, :password_hash])
+    |> validate_required([:username, :password_hash])
     |> unique_constraint(:username)
   end
 end

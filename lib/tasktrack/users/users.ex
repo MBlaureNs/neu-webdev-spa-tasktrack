@@ -55,9 +55,10 @@ defmodule Tasktrack.Users do
 
   """
   def create_user(attrs \\ %{}) do
+    IO.inspect(
     %User{}
     |> User.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert())
   end
 
   @doc """

@@ -69,10 +69,24 @@ function login(state = empty_login, action) {
   }
 }
 
+let empty_flash = {
+  message: "",
+}
+
+function flash(state = empty_flash, action) {
+  switch (action.type) {
+    case 'REGISTER_SUCCESS':
+      //console.log(action);
+      return Object.assign({}, state, action.data);
+    default:
+      return empty_flash;
+  }
+}
+
 function root_reducer(state0, action) {
   //console.log("reducer", action);
 
-  let reducer = combineReducers({tasks, users, form, token, login});
+  let reducer = combineReducers({tasks, users, form, token, login, flash});
   let state1 = reducer(state0, action);
 
   //console.log("state1", state1);

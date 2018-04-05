@@ -63,6 +63,25 @@ class ApiServer {
       },
     });
   }
+  
+  submit_register(data) {
+    console.log("submit_register", data);
+    $.ajax("/api/v1/users", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({user: data}),
+      success: (resp) => {
+	//console.log("ouo");
+	store.dispatch({
+	  type: 'REGISTER_SUCCESS',
+	  data: {
+	    message: "Successfully registered user \""+data.username+"\", please log in"
+	  }
+	});
+      },
+    });
+  }
 }
 
 export default new ApiServer();

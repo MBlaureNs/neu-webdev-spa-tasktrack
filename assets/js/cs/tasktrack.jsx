@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Nav from './nav';
 import Users from './users';
+import Flash from './flash';
 
 export default function tasktrack_init(store) {
   //console.log("tasktrackstate", store.getState());
@@ -24,6 +25,7 @@ let Tasktrack = connect((state) => state)((props) => {
     <Router>
       <div>
 	<Nav/>
+	<Flash flash={props.flash}/>
 	<Route path="/" exact={true} render={() =>
           <div>
             ouo
