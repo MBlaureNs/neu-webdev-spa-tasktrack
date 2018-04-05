@@ -22,7 +22,6 @@ function users(state = [], action) {
     case 'USERS_LIST':
       return [...action.users];
     case 'REGISTER_SUCCESS':
-      console.log("rs", action.data.user);
       return [action.data.user, ...state];
     default:
       return state;
