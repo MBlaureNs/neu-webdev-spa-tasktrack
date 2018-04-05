@@ -11,7 +11,7 @@
 //
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
-import "phoenix_html"
+import "phoenix_html";
 
 // Import local files
 //
@@ -19,3 +19,14 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+
+import store from './store';
+import api from './api';
+
+import tasktrack_init from "./cs/tasktrack";
+
+$(function() {
+  api.request_tasks();
+  api.request_users();
+  tasktrack_init(store);
+});
