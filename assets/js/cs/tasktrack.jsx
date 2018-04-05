@@ -48,11 +48,13 @@ let Tasktrack = connect((state) => state)((props) => {
         }/>
 	<Route path="/users/:user_id" exact={true} render={({match}) =>
           <div>
-	    <ul>
-              <li>ID: {match.params.user_id}</li>
-              <li>Username: {username_from_id(props.users, match.params.user_id)}</li>
-	    </ul>
-	    <Tasks user_id={match.params.user_id} tasks={props.tasks}/>
+            <p>User ID#{match.params.user_id}: {username_from_id(props.users, match.params.user_id)}</p>
+	    <hr/>
+	    Assigned tasks
+	    <Tasks assignee_id={match.params.user_id} tasks={props.tasks}/>
+	    <hr/>
+	    Requesting tasks
+	    <Tasks requester_id={match.params.user_id} tasks={props.tasks}/>
           </div>
         }/>
 	<Route path="/users/:task_id" exact={true} render={({match}) =>

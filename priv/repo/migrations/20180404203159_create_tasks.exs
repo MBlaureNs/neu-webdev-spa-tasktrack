@@ -7,8 +7,8 @@ defmodule Tasktrack.Repo.Migrations.CreateTasks do
       add :completed, :boolean, default: false, null: false
       add :desc, :text
       add :title, :string, null: false
-      add :assignee_id, references(:users, on_delete: :nothing)
-      add :requester_id, references(:users, on_delete: :nothing)
+      add :assignee_id, references(:users, on_delete: :nilify_all)
+      add :requester_id, references(:users, on_delete: :delete_all)
 
       timestamps()
     end

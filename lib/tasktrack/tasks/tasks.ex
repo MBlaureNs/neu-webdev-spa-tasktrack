@@ -19,6 +19,8 @@ defmodule Tasktrack.Tasks do
   """
   def list_tasks do
     Repo.all(Task)
+    |> Repo.preload(:requester)
+    |> Repo.preload(:assignee)
   end
 
   @doc """
@@ -51,7 +53,14 @@ defmodule Tasktrack.Tasks do
   """
   def create_task(attrs \\ %{}) do
     %Task{}
-    |> Task.changeset(attrs)
+    |> Tasktrack.Tasks.Task.changeset(attrs)
+    |> Ecto.Changeset.validate_change(:act_time, fn :act_time, act_time ->
+      if rem(act_time, 15) != 0 do
+	[act_time: "must be div by 15"]
+      else
+	[]
+      end
+    end)
     |> Repo.insert()
   end
 
@@ -69,7 +78,14 @@ defmodule Tasktrack.Tasks do
   """
   def update_task(%Task{} = task, attrs) do
     task
-    |> Task.changeset(attrs)
+    |> Tasktrack.Tasks.Task.changeset(attrs)
+    |> Ecto.Changeset.validate_change(:act_time, fn :act_time, act_time ->
+      if rem(act_time, 15) != 0 do
+	[act_time: "must be div by 15"]
+      else
+	[]
+      end
+    end)
     |> Repo.update()
   end
 
