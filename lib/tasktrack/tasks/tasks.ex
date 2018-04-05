@@ -37,7 +37,11 @@ defmodule Tasktrack.Tasks do
       ** (Ecto.NoResultsError)
 
   """
-  def get_task!(id), do: Repo.get!(Task, id)
+  def get_task!(id) do
+    Repo.get!(Task, id)
+    |> Repo.preload(:requester)
+    |> Repo.preload(:assignee)
+  end
 
   @doc """
   Creates a task.
@@ -52,7 +56,7 @@ defmodule Tasktrack.Tasks do
 
   """
   def create_task(attrs \\ %{}) do
-    %Task{}
+    {_, t} = %Task{}
     |> Tasktrack.Tasks.Task.changeset(attrs)
     |> Ecto.Changeset.validate_change(:act_time, fn :act_time, act_time ->
       if rem(act_time, 15) != 0 do
@@ -62,6 +66,7 @@ defmodule Tasktrack.Tasks do
       end
     end)
     |> Repo.insert()
+    {:ok, Tasktrack.Tasks.get_task!(t.id)}
   end
 
   @doc """

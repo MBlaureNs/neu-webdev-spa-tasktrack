@@ -5,14 +5,25 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Task(params) {
-  return <tr>
-    <td>{params.task.id}</td>
-    <td><Link to={"/tasks/"+params.task.id}>{params.task.title}</Link></td>
-    <td>{params.task.act_time}</td>
-    <td>{params.task.completed ? "Yes" : "No"}</td>
-    <td><Link to={"/users/"+params.task.requester_id}>{params.task.requester_name}</Link></td>
-    <td><Link to={"/users/"+params.task.assignee_id}>{params.task.assignee_name}</Link></td>
-  </tr>;
+  if (params.task.assignee_id) {
+    return <tr>
+      <td>{params.task.id}</td>
+      <td><Link to={"/tasks/"+params.task.id}>{params.task.title}</Link></td>
+      <td>{params.task.act_time}</td>
+      <td>{params.task.completed ? "Yes" : "No"}</td>
+      <td><Link to={"/users/"+params.task.requester_id}>{params.task.requester_name}</Link></td>
+      <td><Link to={"/users/"+params.task.assignee_id}>{params.task.assignee_name}</Link></td>
+    </tr>;
+  } else {
+    return <tr>
+      <td>{params.task.id}</td>
+      <td><Link to={"/tasks/"+params.task.id}>{params.task.title}</Link></td>
+      <td>{params.task.act_time}</td>
+      <td>{params.task.completed ? "Yes" : "No"}</td>
+      <td><Link to={"/users/"+params.task.requester_id}>{params.task.requester_name}</Link></td>
+      <td>{params.task.assignee_name}</td>
+    </tr>;
+  }
 }
 
 export default function Tasks(params) {

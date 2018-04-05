@@ -21,20 +21,24 @@ function users(state = [], action) {
   switch (action.type) {
     case 'USERS_LIST':
       return [...action.users];
+    case 'REGISTER_SUCCESS':
+      console.log("rs", action.data.user);
+      return [action.data.user, ...state];
     default:
       return state;
   }
 }
 
 let empty_form = {
-  user_id: "",
-  body: "",
-  token: "",
+  assignee_id: null,
+  completed: false,
+  act_time: 0,
 }
 
 function form(state = empty_form, action) {
   switch (action.type) {
     case 'UPDATE_FORM':
+      //console.log("uf");
       return Object.assign({}, state, action.data);
     case 'CLEAR_FORM':
       return empty_form;
@@ -80,15 +84,34 @@ function flash(state = empty_flash, action) {
     case 'REGISTER_SUCCESS':
       //console.log(action);
       return Object.assign({}, state, action.data);
+    case 'ADD_TASK':
+      return Object.assign({}, state, action.data);
     default:
       return empty_flash;
+  }
+}
+
+let empty_ntform = {
+  title: "",
+  desc: "",
+}
+
+function ntform(state = empty_ntform, action) {
+  switch (action.type) {
+    case 'UPDATE_NEW_TASK_FORM':
+      //console.log(action);
+      return Object.assign({}, state, action.data);
+    case 'ADD_TASK':
+      return empty_ntform;
+    default:
+      return state;
   }
 }
 
 function root_reducer(state0, action) {
   //console.log("reducer", action);
 
-  let reducer = combineReducers({tasks, users, form, token, login, flash});
+  let reducer = combineReducers({tasks, users, form, token, login, flash, ntform});
   let state1 = reducer(state0, action);
 
   //console.log("state1", state1);

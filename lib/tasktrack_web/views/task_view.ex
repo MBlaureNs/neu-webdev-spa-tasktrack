@@ -17,7 +17,7 @@ defmodule TasktrackWeb.TaskView do
       desc: task.desc,
       title: task.title,
       assignee_id: task.assignee_id,
-      assignee_name: if is_nil(task.assignee) do "None" else task.assignee.username end,
+      assignee_name: if is_nil(task.assignee_id) do "None" else task.assignee.username end,
       requester_id: task.requester_id,
       requester_name: task.requester.username
     }

@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import api from '../api';
 import store from '../store';
 
-let LoginForm = connect(({login}) => {return {login};})((props) => {
+let LoginForm = connect(({login, users}) => {return {login, users};})((props) => {
   function update(ev) {
     let target = $(ev.target);
     let data = {};

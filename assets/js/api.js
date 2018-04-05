@@ -34,6 +34,7 @@ class ApiServer {
   }
   
   submit_task(data) {
+    //console.log(data);
     $.ajax("/api/v1/tasks", {
       method: "post",
       dataType: "json",
@@ -65,18 +66,18 @@ class ApiServer {
   }
   
   submit_register(data) {
-    console.log("submit_register", data);
+    //console.log("submit_register", data);
     $.ajax("/api/v1/users", {
       method: "post",
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify({user: data}),
       success: (resp) => {
-	//console.log("ouo");
 	store.dispatch({
 	  type: 'REGISTER_SUCCESS',
 	  data: {
-	    message: "Successfully registered user \""+data.username+"\", please log in"
+	    message: "Successfully registered user \""+data.username+"\", please log in",
+	    user: resp.data
 	  }
 	});
       },

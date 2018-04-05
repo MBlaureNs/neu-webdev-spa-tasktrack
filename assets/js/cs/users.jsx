@@ -11,7 +11,7 @@ function User(params) {
 }
 
 export default function Users(params) {
-  let users = _.map(params.users, (uu) => <User key={uu.id} user={uu}/>);
+  let users = _.map(params.users, (uu) => uu ? <User key={uu.id} user={uu}/> : "");
   return <div>
     {users}
   </div>;
