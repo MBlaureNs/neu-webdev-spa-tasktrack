@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 import { Form, FormGroup, NavItem, Input, Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import api from '../api';
+import store from '../store';
 
 let LoginForm = connect(({login}) => {return {login};})((props) => {
   function update(ev) {
@@ -44,9 +45,19 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
     </div>);
 });
 
+
+
+let log_out = function(ev) {
+  store.dispatch({
+    type: 'CLEAR_TOKEN'
+  });
+};
+
 let Session = connect(({token}) => {return {token};})((props) => {
   return <div className="navbar-text">
-    Welcome, {props.token.user_username}
+    Welcome, {props.token.user_username}. 
+    <NavLink to={"/users/"+props.token.user_id} exact={true}><Button>Profile</Button></NavLink>
+    <Button onClick={log_out}>Log out</Button>
   </div>;
 });
 
