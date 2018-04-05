@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Nav from './nav';
 import Users from './users';
+import Tasks from './tasks';
 import Flash from './flash';
 
 export default function tasktrack_init(store) {
@@ -20,6 +21,15 @@ export default function tasktrack_init(store) {
   );
 }
 
+function username_from_id(users, user_id) {
+  let u = _.find(users, (x) => x.id == user_id);
+  if (u) {
+    return u.username;
+  } else {
+    return "Unknown";
+  }
+}
+
 let Tasktrack = connect((state) => state)((props) => {
   return (
     <Router>
@@ -28,7 +38,7 @@ let Tasktrack = connect((state) => state)((props) => {
 	<Flash flash={props.flash}/>
 	<Route path="/" exact={true} render={() =>
           <div>
-            ouo
+            <Tasks tasks={props.tasks}/>
           </div>
         }/>
 	<Route path="/users" exact={true} render={() =>
@@ -37,6 +47,15 @@ let Tasktrack = connect((state) => state)((props) => {
           </div>
         }/>
 	<Route path="/users/:user_id" exact={true} render={({match}) =>
+          <div>
+	    <ul>
+              <li>ID: {match.params.user_id}</li>
+              <li>Username: {username_from_id(props.users, match.params.user_id)}</li>
+	    </ul>
+	    <Tasks user_id={match.params.user_id} tasks={props.tasks}/>
+          </div>
+        }/>
+	<Route path="/users/:task_id" exact={true} render={({match}) =>
           <div>
             {match.params.user_id}
           </div>
